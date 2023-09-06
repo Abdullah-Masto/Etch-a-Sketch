@@ -5,11 +5,38 @@
 }
 .container {
   display: flex;
-  flex-direction: column;
   width: 100%;
 }
 .board {
   display: flex;
-  width: 960px;
-  height: 960px;
+  width: 400px;
+  height: 400px;
+  flex: 0;
+}
+.adjustments {
+  width: 300px;
+  padding: 1rem;
+}
+#title {
+  margin: 2rem auto;
+  text-align: center;
+  color: green;
+}
+.adjustments button,
+.adjustments input {
+  display: block;
+  width: 80%;
+  margin: 1rem auto;
+  height: 35px;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+.adjustments button {
+  border-color: green;
+  color: green;
+}
+input[type="range"] {
+  appearance: none;
+  background-color: green;
+  height: 10px;
 }
