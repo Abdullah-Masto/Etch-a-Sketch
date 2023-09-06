@@ -68,6 +68,12 @@ button.lines {
   background-color: green;
   color: white;
 }
+
+button.active {
+  background-color: green;
+  color: white;
+}
+
 @media (max-width: 750px) {
   .container {
     flex-direction: column;

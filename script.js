@@ -43,6 +43,7 @@ function render(length) {
       divs[i][j] = document.createElement("div");
       divs[i][j].classList.add("pixel");
       divs[i][j].classList.add("border");
+      divs[i][j].style.backgroundColor = "#ffffff";
       board.appendChild(divs[i][j]);
     }
   }
@@ -59,10 +60,54 @@ function fill(e, color) {
 
 function paint(pixels) {
   pixels.forEach((pixel) => {
-    pixel.addEventListener("mouseenter", (e) => {
-      fill(e, color);
+    pixel.addEventListener("mouseover", (e) => {
+      if (eraser.classList.contains("active")) {
+        fill(e, "#ffffff");
+      } else if (rainbow.classList.contains("active")) {
+        fill(e, getHex());
+      } else if (shading.classList.contains("active")) {
+        fill(e, addShadow(e.target.style.backgroundColor));
+      } else {
+        fill(e, color);
+      }
     });
   });
+}
+
+function addShadow(color) {
+  color = color.substring(4);
+  color = color.substring(0, color.length - 1);
+  let colors = color.split(",");
+
+  let red = colors[0];
+  let green = colors[1];
+  let blue = colors[2];
+
+  red = parseInt(red);
+  green = parseInt(green);
+  blue = parseInt(blue);
+
+  red = red - 256 * 0.1;
+  green = green - 256 * 0.1;
+  blue = blue - 256 * 0.1;
+
+  if (red < 0) red = 0;
+  if (green < 0) green = 0;
+  if (blue < 0) blue = 0;
+
+  color = `rgb(${red},${green},${blue})`;
+
+  return color;
+}
+
+function getHex() {
+  let num;
+  let hex = "#";
+  for (let i = 0; i < 6; i++) {
+    num = Math.floor(Math.random() * 16 + 0.7);
+    hex += num.toString(16);
+  }
+  return hex;
 }
 
 let pixels = render(length);
@@ -86,4 +131,18 @@ clear.addEventListener("click", () => {
   });
 });
 colorPicker.addEventListener("change", () => (color = colorPicker.value));
-// clear.addEventListener('mou')
+eraser.addEventListener("click", () => {
+  rainbow.classList.remove("active");
+  shading.classList.remove("active");
+  eraser.classList.toggle("active");
+});
+rainbow.addEventListener("click", () => {
+  eraser.classList.remove("active");
+  shading.classList.remove("active");
+  rainbow.classList.toggle("active");
+});
+shading.addEventListener("click", () => {
+  rainbow.classList.remove("active");
+  eraser.classList.remove("active");
+  shading.classList.toggle("active");
+});
