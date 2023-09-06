@@ -6,16 +6,27 @@
 .container {
   display: flex;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .board {
-  display: flex;
+  display: grid;
   width: 400px;
   height: 400px;
-  flex: 0;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  box-sizing: content-box;
+  flex-shrink: 0;
 }
+.board.outline {
+  outline: 1px solid gray;
+  border: 0;
+}
+
 .adjustments {
   width: 300px;
   padding: 1rem;
+  flex-shrink: 0;
 }
 #title {
   margin: 2rem auto;
@@ -23,7 +34,8 @@
   color: green;
 }
 .adjustments button,
-.adjustments input {
+.adjustments input,
+.adjustments div {
   display: block;
   width: 80%;
   margin: 1rem auto;
@@ -39,4 +51,31 @@ input[type="range"] {
   appearance: none;
   background-color: green;
   height: 10px;
+}
+.dimensions {
+  text-align: center;
+}
+.border {
+  border-top: 0.1px solid gray;
+  border-left: 0.1px solid gray;
+}
+.pixel {
+  background-color: white;
+  margin: 0;
+}
+
+button.lines {
+  background-color: green;
+  color: white;
+}
+@media (max-width: 750px) {
+  .container {
+    flex-direction: column;
+  }
+}
+@media (max-width: 410px) {
+  .board {
+    width: 250px;
+    height: 250px;
+  }
 }
